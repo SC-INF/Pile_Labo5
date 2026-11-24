@@ -1,20 +1,22 @@
 #ifndef PILE_HPP
 #define PILE_HPP
 
-#include <iostream>
 #include <array>
-using namespace std;
 
-void pushPile(int valeur, int &compteur, array<int,20> & maPile);
 
-int popPile(int &compteur, array<int,20> & maPile);
+// Déclaration de capacité ici, car elle doit accessible dans pile.cpp et main.cpp
+const size_t CAPACITE = 20;
 
-int topPile(int compteur, array<int,20> & maPile);
+void pushPile(std::array<int, CAPACITE>& maPile, size_t& compteur, int valeur);
 
-bool emptyPile(int compteur);
+void popPile(size_t& compteur);
 
-int sizePile(int compteur);
+int topPile(const std::array<int, CAPACITE>& maPile, size_t compteur);
 
-void clearPile(int &compteur);
+bool emptyPile(size_t compteur);
+size_t sizePile(size_t compteur);
+void clearPile(size_t& compteur);
+
+void afficherPile(const std::array<int, CAPACITE>& maPile, size_t compteur);
 
 #endif

@@ -5,10 +5,11 @@ using namespace  std;
 
 int main() {
 
-        const int capaciteArray{20};
-        const int nbChoixMenu{10};
-        int compteur = 0;
-        array <int, capaciteArray> maPile{};
+        const size_t nbChoixMenu{10};
+        size_t compteur = 0;
+
+        array<int, CAPACITE> maPile{};
+
         array <string, nbChoixMenu> menuAffichage = {
                 "Ce programme permet de manipuler une pile d'entiers.\n",
                 "1 - Empiler",
@@ -22,31 +23,40 @@ int main() {
                 "0 - Quitter"
         };
 
-        for (size_t i = 0; i < nbChoixMenu; i++) {
-                cout << menuAffichage[i] << endl;
-        }
+        cout << menuAffichage[0] << endl;
 
 
         int saisieMenu{};
         int valeur{};
         do {
+                // Menu affiché à chaque tour de boucle.
+                for (size_t i = 1; i < nbChoixMenu; i++) {
+                        cout << menuAffichage[i] << endl;
+                }
+                cout << endl;
+
                 cout << "Votre choix : ";
                 cin >> saisieMenu;
+
 
                 switch (saisieMenu) {
                         case 1:
                                 cout << "Valeur : ";
                                 cin >> valeur;
-                                pushPile(valeur, compteur,maPile);
-                                cout << "Valeur empilee" << endl;
+                                pushPile(maPile, compteur, valeur);
+                                cout << "Valeur empilée." << endl;
                         break;
 
                         case 2:
-                                cout << "Valeur retiree : " << popPile(compteur, maPile) << endl;
+                                if (!emptyPile(compteur)) {
+                                        valeur = topPile(maPile, compteur);
+                                }
+                                popPile(compteur);
+                                cout << "Valeur retirée : " << valeur << endl;
                         break;
 
                         case 3:
-                                cout << "Sommet : " << topPile(compteur, maPile) << endl;
+                                cout << "Sommet : " << topPile(maPile, compteur) << endl;
                         break;
 
                         case 4:
@@ -63,16 +73,15 @@ int main() {
 
                         case 7:
                                 clearPile(compteur);
-                                cout << "Pile videe." << endl;
+                                cout << "Pile vidée." << endl;
                         break;
 
                         case 8:
-
+                                afficherPile(maPile, compteur);
                         break;
                 }
         }while (saisieMenu != 0);
 
-        for (size_t i = compteur -1; i < maPile.size(); i--)
-                cout << maPile.at(i) << endl;
+        cout << "Fin de programme." << endl;
 
 }
